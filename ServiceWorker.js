@@ -1,4 +1,4 @@
-const cacheName = "DefaultCompany-dress-up-game-1.0";
+const cacheName = "DefaultCompany-dress-up-game-1.0.1";
 const contentToCache = [
     "Build/dress-up.loader.js",
     "Build/dress-up.framework.js.unityweb",

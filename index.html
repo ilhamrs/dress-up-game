@@ -3,11 +3,60 @@
 
 <head>
     <meta charset="utf-8">
-    <title>dress-up-game</title>
+    <title>Fenyx Atelier</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="Thumbnail.PNG" type="image/png">
+
+    <style>
+        /* ROTATE WARNING */
+        #rotate-warning {
+            position: fixed;
+            inset: 0;
+            background: #e9e9e9;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 9999;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+
+        #rotate-warning img {
+            width: 120px;
+            margin-bottom: 25px;
+            animation: rotateAnim 2s infinite;
+        }
+
+        /* Animasi baru */
+        @keyframes rotateAnim {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            75% {
+                transform: rotate(-90deg);
+            }
+
+            100% {
+                transform: rotate(-90deg);
+            }
+        }
+
+        .rotate-main {
+            font-size: 18px;
+            letter-spacing: 1px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .rotate-sub {
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
 
 </head>
 
@@ -22,31 +71,32 @@
             <div id="loading-bar">
                 <div id="loading-progress"></div>
             </div>
-            <!-- <div id="loading-text">Loading...</div> -->
         </div>
 
     </div>
 
+    <!-- ROTATE WARNING UI -->
+    <div id="rotate-warning">
+        <!-- <div id="rotate-warning" onclick="skipRotate()"> -->
+        <img src="phone.png" alt="Rotate Device"> <!-- GANTI sesuai path icon -->
+        <div class="rotate-main">PLEASE ROTATE YOUR DEVICE</div>
+        <!-- <div class="rotate-sub">(OR CLICK TO CONTINUE)</div> -->
+    </div>
+
     <script>
 
-        const buildVersion = "1.0.7";
-
+        const buildVersion = "1.0.8";
         const buildUrl = "Build";
-
-        const loaderUrl = buildUrl + "/a76cce770dc47015e6e974cb33b26b4f.loader.js?v=" + buildVersion;
+        const loaderUrl = buildUrl + "/7fbbe94b38b9aa07518af026e8e27fcb.loader.js?v=" + buildVersion;
 
         const config = {
-
-            dataUrl: buildUrl + "/22a1a4cd57d115f37353e7639a34ad92.data.unityweb?v=" + buildVersion,
-            frameworkUrl: buildUrl + "/81165b39d11d38eb417c5927cfe893f6.framework.js.unityweb?v=" + buildVersion,
-            codeUrl: buildUrl + "/89d6e394095d12c88fa689bb45e53051.wasm.unityweb?v=" + buildVersion,
-
+            dataUrl: buildUrl + "/04f047ef94d85dd85c1e1ccfb5671250.data?v=" + buildVersion,
+            frameworkUrl: buildUrl + "/81165b39d11d38eb417c5927cfe893f6.framework.js?v=" + buildVersion,
+            codeUrl: buildUrl + "/97679d30451cec52192d0ba8e1834f14.wasm?v=" + buildVersion,
             streamingAssetsUrl: "StreamingAssets",
-
-            companyName: "DefaultCompany",
-            productName: "dress-up-game",
+            companyName: "Fenyx X IDS",
+            productName: "Fenyx Atelier",
             productVersion: buildVersion,
-
         };
 
         const canvas = document.querySelector("#unity-canvas");
@@ -60,17 +110,11 @@
         script.src = loaderUrl;
 
         script.onload = () => {
-
             createUnityInstance(canvas, config, unityProgress).then((unityInstance) => {
-
                 document.querySelector("#loading-screen").style.display = "none";
-
             }).catch((message) => {
-
                 alert(message);
-
             });
-
         };
 
         document.body.appendChild(script);
@@ -79,49 +123,34 @@
 
     <script src="loading.js"></script>
 
-</body>
-
-<style>
-    #rotate-warning {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      color: white;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      z-index: 9999;
-      font-size: 24px;
-    }
-    </style>
-    
-    <div id="rotate-warning">
-      <div>
-        <p>Silakan putar perangkat ke mode landscape</p>
-      </div>
-    </div>
-    
     <script>
-    function checkOrientation() {
-      const warning = document.getElementById("rotate-warning");
-      if (window.innerHeight > window.innerWidth) {
-        // Portrait
-        warning.style.display = "flex";
-        document.querySelector("#unity-container").style.display = "none";
-      } else {
-        // Landscape
-        warning.style.display = "none";
-        document.querySelector("#unity-container").style.display = "block";
-      }
-    }
-    
-    window.addEventListener("resize", checkOrientation);
-    window.addEventListener("orientationchange", checkOrientation);
-    window.addEventListener("load", checkOrientation);
+        let forceContinue = false;
+
+        function skipRotate() {
+            forceContinue = true;
+            checkOrientation();
+        }
+
+        function checkOrientation() {
+            const warning = document.getElementById("rotate-warning");
+            const unity = document.querySelector("#unity-container");
+
+            if (!forceContinue && window.innerHeight > window.innerWidth) {
+                // Portrait
+                warning.style.display = "flex";
+                unity.style.display = "none";
+            } else {
+                // Landscape / skip
+                warning.style.display = "none";
+                unity.style.display = "block";
+            }
+        }
+
+        window.addEventListener("resize", checkOrientation);
+        window.addEventListener("orientationchange", checkOrientation);
+        window.addEventListener("load", checkOrientation);
     </script>
+
+</body>
 
 </html>

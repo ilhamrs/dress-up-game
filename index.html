@@ -14,7 +14,7 @@
         #rotate-warning {
             position: fixed;
             inset: 0;
-            background: #e9e9e9;
+            background: #000000;
             display: none;
             justify-content: center;
             align-items: center;
@@ -24,11 +24,11 @@
             font-family: Arial, sans-serif;
         }
 
-        #rotate-warning img {
+        /* #rotate-warning img {
             width: 120px;
             margin-bottom: 25px;
             animation: rotateAnim 2s infinite;
-        }
+        } */
 
         /* Animasi baru */
         @keyframes rotateAnim {
@@ -78,21 +78,22 @@
     <!-- ROTATE WARNING UI -->
     <div id="rotate-warning">
         <!-- <div id="rotate-warning" onclick="skipRotate()"> -->
-        <img src="phone.png" alt="Rotate Device"> <!-- GANTI sesuai path icon -->
-        <div class="rotate-main">PLEASE ROTATE YOUR DEVICE</div>
+        <!-- <img src="phone.png" alt="Rotate Device"> GANTI sesuai path icon -->
+        <img src="rotate_phone.gif" > <!-- GANTI sesuai path icon -->
+        <!-- <div class="rotate-main">PLEASE ROTATE YOUR DEVICE</div> -->
         <!-- <div class="rotate-sub">(OR CLICK TO CONTINUE)</div> -->
     </div>
 
     <script>
 
-        const buildVersion = "1.1.0";
+        const buildVersion = "1.1.1";
         const buildUrl = "Build";
-        const loaderUrl = buildUrl + "/7856855ff17f0485c087859aff8b6db2.loader.js?v=" + buildVersion;
+        const loaderUrl = buildUrl + "/eed3c89dacb2c36338140a5f9ae3713d.loader.js?v=" + buildVersion;
 
         const config = {
-            dataUrl: buildUrl + "/d195a037b100cab554324fb9bc27b8fd.data?v=" + buildVersion,
+            dataUrl: buildUrl + "/4bfcc23287592ade5ebbc0fb9dc25329.data?v=" + buildVersion,
             frameworkUrl: buildUrl + "/81165b39d11d38eb417c5927cfe893f6.framework.js?v=" + buildVersion,
-            codeUrl: buildUrl + "/e58bc00c840203ae9f597bfbe4feba52.wasm?v=" + buildVersion,
+            codeUrl: buildUrl + "/fa9e890e4f2de4adae974b0823d6cb05.wasm?v=" + buildVersion,
             streamingAssetsUrl: "StreamingAssets",
             companyName: "Fenyx X IDS",
             productName: "Fenyx Atelier",
